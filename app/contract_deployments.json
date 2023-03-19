@@ -1,0 +1,16 @@
+{
+	"implementations": {
+		"1": {
+			"goerli": "0x6B341fd011d1BfE4B138cfFe341BA9F8C63Ef86f",
+			"sepolia": "0x48865E127954910C9e41824d147f2E74D2163c7E"
+		},
+		"2": {
+			"goerli": "0xA92C799C3A59aaD1dDD0dcB837602eDd666652BA",
+			"sepolia": "0xAc813DBeb118b7EB7bbBc23Ef2F6d6da80B98676"
+		}
+	},
+	"proxy": {
+		"goerli": "0x7d42a9f8846b36F40FAf80b731F53473B138925E",
+		"sepolia": "0xB952D91d638556905Daf6e813EBf87989752c882"
+	}
+}

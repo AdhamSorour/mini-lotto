@@ -11,7 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.2",
-    "dotenv": "^16.0.3"
+    "alchemy-sdk": "^2.6.1",
+    "dotenv": "^16.0.3",
+    "fs": "^0.0.1-security",
+    "react-icons": "^4.8.0"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",

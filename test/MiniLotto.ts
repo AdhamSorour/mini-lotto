@@ -50,6 +50,20 @@ describe("MiniLotto", function () {
 
   describe("Deployment", function () {
 
+    it('Should fail to deploy proxy with an EOA address', async function () {
+      const { accounts } = await loadFixture(deployProxyAsV1Fixture);
+
+      const Proxy = await ethers.getContractFactory("MiniLottoProxy");
+      await expect(Proxy.deploy(accounts[1].address, [])).to.be.reverted;
+    });
+
+    it('Should fail to deploy proxy with a non-UUPS-compatible implementation', async function () {
+      const INCOMPATIBLE_ADDRESS = "0xd1d1D4e36117aB794ec5d4c78cBD3a8904E691D0";
+
+      const Proxy = await ethers.getContractFactory("MiniLottoProxy");
+      await expect(Proxy.deploy(INCOMPATIBLE_ADDRESS, [])).to.be.reverted;
+    });
+
     it('Should deploy contracts', async function () {
       const { proxy, lottoV1, lottoV2 } = await loadFixture(deployProxyAsV1Fixture);
       
