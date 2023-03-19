@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-contract MiniLotto {
+import "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol";
+
+contract MiniLottoV1 is UUPSUpgradeable {
     struct Game {
         uint capacity;
         uint ticketPrice;
@@ -55,5 +57,11 @@ contract MiniLotto {
 
     function getParticipants(uint gameId) external view returns (address[] memory) {
         return games[gameId].pool;
+    }
+
+    // required override from UUPSUpgradeable
+    // handles the proxy upgrade authorization
+    function _authorizeUpgrade(address) internal view override {
+        require(msg.sender == _getAdmin(), "unauthorized, admin only");
     }
 }
