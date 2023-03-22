@@ -1,8 +1,9 @@
-import { HardhatUserConfig, task, types } from "hardhat/config";
+import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import { HardhatRuntimeEnvironment, RunSuperFunction, TaskArguments } from "hardhat/types";
 import { copyFileSync, readFileSync, writeFileSync } from "fs";
 import { Contract, ContractFactory } from "ethers";
+import { proxy } from './app/contract_deployments.json';
 require('dotenv').config({ path: "./.env" });
 
 task(
@@ -24,13 +25,13 @@ task('deployProxy', 'Deploys the proxy contract to the selected network')
   .setAction(async function (taskArgs: TaskArguments, hre: HardhatRuntimeEnvironment) {
     const { implementation } = taskArgs;
     
-    const Proxy: ContractFactory = await hre.ethers.getContractFactory("MiniLottoProxy");
-    const proxy: Contract = await Proxy.deploy(implementation, []);
+    const ProxyFactory: ContractFactory = await hre.ethers.getContractFactory("MiniLottoProxy");
+    const proxyContract: Contract = await ProxyFactory.deploy(implementation, []);
 
-    await proxy.deployed();
+    await proxyContract.deployed();
 
-    console.log(`proxy contract deployed to address: ${proxy.address} on network: ${hre.network.name}`);
-    await updateProxyDeployment(proxy.address, hre.network.name);
+    console.log(`proxy contract deployed to address: ${proxyContract.address} on network: ${hre.network.name}`);
+    await updateProxyDeployment(proxyContract.address, hre.network.name);
     console.log("address updated in 'deployments.json'");
   })
 ;
@@ -49,6 +50,19 @@ task('deployImplementation', 'Deploys an implementation contract to the selected
     console.log(`${contractName} deployed to address: ${contract.address} on network: ${hre.network.name}`);
     await updateImplementationDeployment(contract.address, hre.network.name, v);
     console.log("address updated in './app/contract_deployments.json'");
+  })
+;
+
+task('upgrade', "Upgrades the implementation of the deployed proxy on the selected network")
+  .addParam('implementation', 'The new implementation address')
+  .setAction(async function (taskArgs: TaskArguments, hre: HardhatRuntimeEnvironment) {
+    const { implementation } = taskArgs;
+
+    const network = hre.network.name as keyof typeof proxy;
+    const proxyContract: Contract = await hre.ethers.getContractAt("MiniLottoV1", proxy[network]);
+    await proxyContract.upgradeTo(implementation)
+
+    console.log(`proxy contract upgraded`)
   })
 ;
 
