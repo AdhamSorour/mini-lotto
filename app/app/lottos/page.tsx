@@ -6,6 +6,13 @@ import LottoCard from "./LottoCard";
 import CreateLotto from './CreateLotto';
 require('dotenv').config({ path: "../.env" });
 
+export const dynamic = 'auto',
+  dynamicParams = true,
+  revalidate = 0,
+  fetchCache = 'auto',
+  runtime = 'nodejs',
+  preferredRegion = 'auto'
+
 export interface Game {
 	id: number,
 	capacity: number,
