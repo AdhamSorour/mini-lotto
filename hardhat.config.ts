@@ -12,11 +12,13 @@ task(
     taskArgs: TaskArguments,
     hre: HardhatRuntimeEnvironment,
     runSuper: RunSuperFunction<TaskArguments>) {
-      await runSuper();
+      await runSuper(taskArgs);
       copyFileSync(
-        './artifacts/contracts/MiniLottoV2.sol/MiniLottoV2.json',
+        './artifacts/contracts/MiniLottoV3.sol/MiniLottoV3.json',
         './app/MiniLottoArtifact.json'
       )
+
+      console.log("copied V3 artiface to 'app/MiniLottoArtifact.json`")
   }
 );
 

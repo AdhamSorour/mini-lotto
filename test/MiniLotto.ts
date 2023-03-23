@@ -304,5 +304,34 @@ describe("MiniLotto", function () {
         await expect(proxyAsV3.refund(gameId)).to.be.rejectedWith("game is complete");
       });
     });
+
+    describe("Getters", function () {
+
+      it("should get all games created", async function () {
+        const { proxyAsV3 } = await loadFixture(deployProxyAsV3Fixture);
+
+        const capacity = [5, 4, 3, 4, 5];
+        const ticketPrice = [100, 1000, 10000, 100000, 1000000];
+        const numTickets = [1, 2, 3, 3, 3];
+        const expiration = [0, 2000000000, 0, 2000000000, 0];
+    
+        for (let i = 0; i < 5; i++) {
+          await proxyAsV3.createGame(
+            capacity[i], ticketPrice[i], expiration[i], numTickets[i],
+            { value: ticketPrice[i] * numTickets[i] }
+          );
+        }
+
+        const games = await proxyAsV3.getGames();
+
+        for (let i = 0; i < 5; i++) {
+          expect(games[i].capacity).to.equal(capacity[i]);
+          expect(games[i].ticketPrice).to.equal(ticketPrice[i]);
+          expect(games[i].pool.length).to.equal(numTickets[i]);
+          expect(games[i].expiration).to.equal(expiration[i]);
+          expect(games[i].refunded).to.equal(false);
+        }
+      });
+    });
   });
 });

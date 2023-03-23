@@ -6,11 +6,16 @@
 		},
 		"2": {
 			"goerli": "0xA92C799C3A59aaD1dDD0dcB837602eDd666652BA",
-			"sepolia": "0xAc813DBeb118b7EB7bbBc23Ef2F6d6da80B98676"
+			"sepolia": "0xD2AFFdfcB591B26Dc20188bBBEecAf5fA9bB5D8b"
+		},
+		"3": {
+			"sepolia": "0x373779bd85A5C7Db47ABE750e0ACFC201e9fEE0e",
+			"goerli": "0xa9931BD497C7B2F89B14ca570A02F58FeBC2690F"
 		}
 	},
 	"proxy": {
-		"goerli": "0x7d42a9f8846b36F40FAf80b731F53473B138925E",
-		"sepolia": "0xB952D91d638556905Daf6e813EBf87989752c882"
+		"goerli": "0xf6a5D6C57A4Ac8117f53B7E5192705B305E7528E",
+		"sepolia": "0x03B0cB7b494cAe535c34A7d2b52569B12E512943",
+		"mainnet": ""
 	}
 }
