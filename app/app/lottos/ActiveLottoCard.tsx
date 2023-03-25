@@ -33,7 +33,7 @@ const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) 
 		}, 1000);
 
 		return () => clearInterval(intervalId);
-	}, [expiration]);
+	}, [expiration, router]);
 
 	const handleBuyTickets = async () => {
 		const contract = await getContractWithSigner(chainId);

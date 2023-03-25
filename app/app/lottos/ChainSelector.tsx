@@ -9,6 +9,15 @@ export default function ChainSelector() {
 	const searchParams = useSearchParams();
 	const [chainId, setChainId] = useState<string>();
 
+	const createQueryString = useCallback(
+		(name: string, value: string) => {
+			const params = new URLSearchParams(searchParams);
+			params.set(name, value);
+			return params.toString();
+		},
+		[searchParams],
+	);
+
 	useEffect(() => {
 		const supportedChains: string[] = ["0xaa36a7", "0x5", "0x1"];
 		const selectChainId: string | null = searchParams.get("chainId");
@@ -18,27 +27,18 @@ export default function ChainSelector() {
 			} else {
 				setChainId("0xaa36a7");
 				router.push(pathname + '?' + createQueryString('chainId', "0xaa36a7"));
-				alert(`Chain with id ${selectChainId} is unsupported\nDefaulting to Sepolia`);
+				alert(`Chain with id ${selectChainId} is not supported\nDefaulting to Sepolia`);
 			}
 		} else {
 			setChainId("0xaa36a7");
 			router.push(pathname + '?' + createQueryString('chainId', "0xaa36a7"));
 		}
-	}, [])
+	}, [pathname, router, createQueryString])
 
 	const handleChainChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setChainId(event.target.value);
 		router.push(pathname + '?' + createQueryString('chainId', event.target.value));
 	}
-
-	const createQueryString = useCallback(
-		(name: string, value: string) => {
-			const params = new URLSearchParams(searchParams);
-			params.set(name, value);
-			return params.toString();
-		},
-		[searchParams],
-	);
 
 	return (
 		<select value={chainId} onChange={handleChainChange}>

@@ -19,7 +19,7 @@ const ExpiredLottoCard = ({ id, capacity, ticketPrice, pool, expiration, refunde
 	useEffect(() => {
 		const expiry = new Date(expiration * 1000);
 		setExpiryInfo(`Expired on ${expiry.toLocaleDateString()} ${expiry.toLocaleTimeString()}`);
-	}, []);
+	}, [expiration]);
 
 	const handleRefund = async () => {
 		const contract = await getContractWithSigner(chainId);
