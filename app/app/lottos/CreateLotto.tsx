@@ -1,53 +1,24 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { DateTime } from 'luxon';
-import { utils, providers, Contract } from 'ethers';
-import detectEthereumProvider from '@metamask/detect-provider';
-import deployments from '../../contract_deployments.json';
-import artifact from '../../MiniLottoArtifact.json';
+import { utils } from 'ethers';
+import { useChainId } from './layout';
+import { getContractWithSigner } from './contractHandler';
 
-export async function getContract() : Promise<Contract | null> {
-	const ethereum: any = await detectEthereumProvider();
-	if (!ethereum) {
-		alert("MetaMask Wallet Required");
-		return null;
-	}
-
-	const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-	if (!accounts[0]) return null;
-
-	const contract_address = (() => {switch(ethereum.networkVersion) {
-			case "1": return deployments.proxy.mainnet;
-			case "5": return deployments.proxy.goerli;
-			case "11155111": return deployments.proxy.sepolia;
-			default: return ""; 
-		}
-	})();
-	if (contract_address === "") {
-		alert("This network is not supported. Please select Sepolia, Goerli, or Mainnet");
-		return null;
-	}
-
-	const signer = new providers.Web3Provider(ethereum).getSigner(); 
-	return new Contract(contract_address, artifact.abi, signer);
-}
-
-export default function CreateLotto() {
-
+export default function CreateLotto({ refreshData } : { refreshData: () => void }) {
 	const [capacity, setCapacity] = useState<number>(10);
 	const [ticketPrice, setTicketPrice] = useState<number>(0.1);
 	const [numTickets, setNumTickets] = useState<number>(1);
 	const [expirationEnabled, setExpirationEnabled] = useState<boolean>(false);
 	const [expiration, setExpiration] = useState<number>(0);
 
-	const router = useRouter();
+	const chainId = useChainId();
 
 	const create = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
-		const contract = await getContract();
+		const contract = await getContractWithSigner(chainId);
 		if (contract) {
 			const ticketPriceInWei = utils.parseEther(ticketPrice.toString());
 			const tx = await contract.createGame(
@@ -55,7 +26,7 @@ export default function CreateLotto() {
 				{ value: ticketPriceInWei.mul(numTickets) }
 			);
 			await tx.wait();
-			router.refresh();
+			refreshData();
 		}
 	}
 
@@ -92,6 +63,7 @@ export default function CreateLotto() {
 					value={capacity} 
 					onChange={handleCapacityChange} 
 					min={2} 
+					max={8000000000}
 					onKeyDown={() => false}
 					required 
 				/>
