@@ -7,12 +7,12 @@ import ActiveLottoCard from "./ActiveLottoCard";
 import ExpiredLottoCard from "./ExpiredLottoCard";
 import CompleteLottoCard from "./CompleteLottoCard";
 
-// export const dynamic = 'auto',
-//   dynamicParams = true,
-//   revalidate = 0,
-//   fetchCache = 'auto',
-//   runtime = 'nodejs',
-//   preferredRegion = 'auto'
+export const dynamic = 'auto',
+  dynamicParams = true,
+  revalidate = 0,
+  fetchCache = 'auto',
+  runtime = 'nodejs',
+  preferredRegion = 'auto'
 
 export interface Game {
 	id: number,
