@@ -33,7 +33,7 @@ export default function ChainSelector() {
 			setChainId("0xaa36a7");
 			router.push(pathname + '?' + createQueryString('chainId', "0xaa36a7"));
 		}
-	}, [pathname, router, createQueryString])
+	}, [pathname, searchParams, router, createQueryString])
 
 	const handleChainChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setChainId(event.target.value);
