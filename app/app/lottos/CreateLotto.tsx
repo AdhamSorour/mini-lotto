@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 import { utils } from 'ethers';
 import { getContractWithSigner } from './contractHandler';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useAccount } from './AccountProvider';
 
 export default function CreateLotto() {
 	const [capacity, setCapacity] = useState<number>(10);
@@ -15,12 +16,14 @@ export default function CreateLotto() {
 
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const chainId = searchParams.get("chainId") ?? "0xaa36a7";
+	const chainId = searchParams.get("chainId")!;
+
+	const account = useAccount();
 
 	const create = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
-		const contract = await getContractWithSigner(chainId);
+		const contract = await getContractWithSigner(chainId, account);
 		if (contract) {
 			const ticketPriceInWei = utils.parseEther(ticketPrice.toString());
 			try {

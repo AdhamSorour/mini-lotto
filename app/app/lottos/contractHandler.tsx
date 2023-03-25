@@ -30,19 +30,24 @@ export async function getContractWithProvider(chainId: string) : Promise<Contrac
 	return new Contract(contractAddress, artifact.abi, provider);
 }
 
-export async function getContractWithSigner(chainId: string) : Promise<Contract | null> {
+export async function getContractWithSigner(chainId: string, account: string | null) : Promise<Contract | null> {
 	const ethereum: any = await detectEthereumProvider();
 	if (!ethereum) {
-		alert("MetaMask Wallet Required");
+		alert("MetaMask wallet required");
 		return null;
 	}
 
-	const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-	if (!accounts[0]) return null;
+	if (!account) {
+		const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+		if (!accounts[0]) {
+			alert("No accounts connected\nPlease connect your wallet");
+			return null;
+		}
+	}
 
 	if (chainId != ethereum.chainId) {
 		if (!await matchChain(chainId)) {
-			alert("Network mismatch!");
+			alert("Network mismatch");
 			return null;
 		}
 	}

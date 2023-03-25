@@ -7,6 +7,7 @@ import { utils, BigNumber } from "ethers";
 import { Game } from './page';
 import { getContractWithSigner } from "./contractHandler";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useAccount } from "./AccountProvider";
 
 
 const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) => {
@@ -16,6 +17,8 @@ const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) 
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const chainId = searchParams.get("chainId")!;
+
+	const account = useAccount();
 
 	useEffect(() => {
 		if (expiration === 0) {
@@ -36,7 +39,7 @@ const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) 
 	}, [expiration, router]);
 
 	const handleBuyTickets = async () => {
-		const contract = await getContractWithSigner(chainId);
+		const contract = await getContractWithSigner(chainId, account);
 		if (contract) {
 			try {
 				const tx = await contract.buyTickets(

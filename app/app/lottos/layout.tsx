@@ -1,3 +1,4 @@
+import AccountProvider from "./AccountProvider"
 import ChainSelector from "./ChainSelector"
 
 export default function MainLayout({
@@ -8,7 +9,9 @@ export default function MainLayout({
   return (
     <main>
       <ChainSelector/>
-      {children}
+      <AccountProvider>
+        {children}
+      </AccountProvider>
     </main>
   )
 }

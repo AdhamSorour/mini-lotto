@@ -7,6 +7,7 @@ import { Game } from './page';
 import { getContractWithSigner } from "./contractHandler";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useAccount } from "./AccountProvider";
 
 
 const ExpiredLottoCard = ({ id, capacity, ticketPrice, pool, expiration, refunded }: Game) => {
@@ -16,13 +17,15 @@ const ExpiredLottoCard = ({ id, capacity, ticketPrice, pool, expiration, refunde
 	const searchParams = useSearchParams();
 	const chainId = searchParams.get("chainId")!;
 
+	const account = useAccount();
+
 	useEffect(() => {
 		const expiry = new Date(expiration * 1000);
 		setExpiryInfo(`Expired on ${expiry.toLocaleDateString()} ${expiry.toLocaleTimeString()}`);
 	}, [expiration]);
 
 	const handleRefund = async () => {
-		const contract = await getContractWithSigner(chainId);
+		const contract = await getContractWithSigner(chainId, account);
 		if (contract) {
 			const tx = await contract.refund(id);
 			await tx.wait();
