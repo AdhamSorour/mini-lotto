@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { useChainId } from "./layout";
+import { useChainId } from "./ChainIdProvider";
 import { Alchemy, AlchemyProvider, BigNumber, Contract, Network } from "alchemy-sdk";
 import deployments from '../../contract_deployments.json';
 import artifact from '../../MiniLottoArtifact.json';

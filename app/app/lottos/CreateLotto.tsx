@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { DateTime } from 'luxon';
 import { utils } from 'ethers';
-import { useChainId } from './layout';
+import { useChainId } from './ChainIdProvider';
 import { getContractWithSigner } from './contractHandler';
 
 export default function CreateLotto({ refreshData } : { refreshData: () => void }) {

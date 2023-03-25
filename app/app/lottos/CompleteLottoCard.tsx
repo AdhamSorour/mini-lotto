@@ -2,7 +2,7 @@
 
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
-import { useChainId } from './layout';
+import { useChainId } from './ChainIdProvider';
 import { FaEthereum } from "react-icons/fa";
 import { utils, BigNumber } from "ethers";
 import { Game } from './page';
@@ -28,7 +28,7 @@ const CompleteLottoCard = ({ id, capacity, ticketPrice, pool }: Props) => {
 		}
 		 
 		getWinner();
-	}, []);
+	}, [id, chainId]);
 
 	const formatAddress = (address: string) => address.slice(0, 4) + '...' + address.slice(-4);
 

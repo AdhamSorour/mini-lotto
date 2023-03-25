@@ -2,7 +2,7 @@
 
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
-import { useChainId } from './layout';
+import { useChainId } from './ChainIdProvider';
 import { FaEthereum } from "react-icons/fa";
 import { utils, BigNumber } from "ethers";
 import { Game } from './page';
@@ -29,7 +29,7 @@ const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration, refreshD
 		}, 1000);
 
 		return () => clearInterval(intervalId);
-	}, []);
+	}, [expiration, refreshData]);
 
 	const handleBuyTickets = async () => {
 		const contract = await getContractWithSigner(chainId);

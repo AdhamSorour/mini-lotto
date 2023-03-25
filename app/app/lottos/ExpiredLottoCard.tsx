@@ -1,7 +1,7 @@
 'use client';
 
 import styles from "./page.module.css";
-import { useChainId } from './layout';
+import { useChainId } from './ChainIdProvider';
 import { FaEthereum } from "react-icons/fa";
 import { utils, BigNumber } from "ethers";
 import { Game } from './page';

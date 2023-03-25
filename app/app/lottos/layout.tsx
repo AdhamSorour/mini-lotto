@@ -1,12 +1,7 @@
 'use client';
 
-import { createContext, useContext, useState } from "react";
-
-const ChainIdContext = createContext<string>("0xaa36a7");
-
-export const useChainId = () => {
-	return useContext(ChainIdContext);
-}
+import { useState } from "react";
+import { ChainIdContext } from "./ChainIdProvider";
 
 export default function MainLayout({
   children,
