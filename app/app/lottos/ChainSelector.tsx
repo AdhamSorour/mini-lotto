@@ -10,9 +10,16 @@ export default function ChainSelector() {
 	const [chainId, setChainId] = useState<string>();
 
 	useEffect(() => {
-		const selectChainId = searchParams.get("chainId");
+		const supportedChains: string[] = ["0xaa36a7", "0x5", "0x1"];
+		const selectChainId: string | null = searchParams.get("chainId");
 		if (selectChainId) {
-			setChainId(selectChainId);
+			if (supportedChains.includes(selectChainId)) {
+				setChainId(selectChainId);
+			} else {
+				setChainId("0xaa36a7");
+				router.push(pathname + '?' + createQueryString('chainId', "0xaa36a7"));
+				alert(`Chain with id ${selectChainId} is unsupported\nDefaulting to Sepolia`);
+			}
 		} else {
 			setChainId("0xaa36a7");
 			router.push(pathname + '?' + createQueryString('chainId', "0xaa36a7"));
