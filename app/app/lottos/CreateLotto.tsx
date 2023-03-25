@@ -23,12 +23,19 @@ export default function CreateLotto() {
 		const contract = await getContractWithSigner(chainId);
 		if (contract) {
 			const ticketPriceInWei = utils.parseEther(ticketPrice.toString());
-			const tx = await contract.createGame(
-				capacity, ticketPriceInWei, expiration, numTickets,
-				{ value: ticketPriceInWei.mul(numTickets) }
-			);
-			await tx.wait();
-			router.refresh();
+			try {
+				const tx = await contract.createGame(
+					capacity, ticketPriceInWei, expiration, numTickets,
+					{ value: ticketPriceInWei.mul(numTickets) }
+				);
+				await tx.wait();
+				router.refresh();	
+			} catch (error: any) {
+				if (error.code === "INSUFFICIENT_FUNDS") {
+					alert("you poor");
+					console.log(error);
+				}
+			}
 		}
 	}
 

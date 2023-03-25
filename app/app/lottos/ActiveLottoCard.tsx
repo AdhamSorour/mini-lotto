@@ -36,11 +36,18 @@ const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) 
 	const handleBuyTickets = async () => {
 		const contract = await getContractWithSigner(chainId);
 		if (contract) {
-			const tx = await contract.buyTickets(
-				id, numTickets, { value: BigNumber.from(ticketPrice).mul(numTickets) }
-			);
-			await tx.wait();
-			router.refresh();
+			try {
+				const tx = await contract.buyTickets(
+					id, numTickets, { value: BigNumber.from(ticketPrice).mul(numTickets) }
+				);
+				await tx.wait();
+				router.refresh();
+			} catch (error: any) {
+				if (error.code === "INSUFFICIENT_FUNDS") {
+					alert("you poor");
+				}
+				console.log(error);
+			}
 		}
 	};
 
