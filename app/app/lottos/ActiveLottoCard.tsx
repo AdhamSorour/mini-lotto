@@ -10,21 +10,23 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 
 const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) => {
-	const [isMounted, setIsMounted] = useState<boolean>(false);
 	const [numTickets, setNumTickets] = useState<number>(1);
-	const [remainingTime, setRemainingTime] = useState<number>(expiration - (Date.now() / 1000)); // in seconds
+	const [expiryInfo, setExpiryInfo] = useState<string>("Expires in ...");
 
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const chainId = searchParams.get("chainId")!;
 
 	useEffect(() => {
-		setIsMounted(true);
+		if (expiration === 0) {
+			setExpiryInfo(`No Expiry`);
+			return;
+		}
 
 		const intervalId = setInterval(() => {
-			const newRemainingTime = expiration - (Date.now() / 1000);
-			setRemainingTime(newRemainingTime);
-			if (newRemainingTime <= 0) {
+			const remainingTime = expiration - (Date.now() / 1000);
+			setExpiryInfo(`Expires in ${formatTime(remainingTime)}`);
+			if (remainingTime <= 0) {
 				clearInterval(intervalId);
 				router.refresh();
 			}
@@ -80,10 +82,7 @@ const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) 
 					</span>
 				</div>
 			</div>
-			<div className={styles.expiry}>
-				{expiration === 0 ? `No Expiry` : 
-				isMounted ? `Expires in ${formatTime(remainingTime)}` : `Loading...`}
-			</div>
+			<div className={styles.expiry}>{expiryInfo}</div>
 			<div className={styles.actions}>
 				<span>
 					<button onClick={handleBuyTickets}>Buy Ticket(s)</button>
