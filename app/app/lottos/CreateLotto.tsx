@@ -3,17 +3,19 @@
 import { useState } from 'react';
 import { DateTime } from 'luxon';
 import { utils } from 'ethers';
-import { useChainId } from './ChainIdProvider';
 import { getContractWithSigner } from './contractHandler';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function CreateLotto({ refreshData } : { refreshData: () => void }) {
+export default function CreateLotto() {
 	const [capacity, setCapacity] = useState<number>(10);
 	const [ticketPrice, setTicketPrice] = useState<number>(0.1);
 	const [numTickets, setNumTickets] = useState<number>(1);
 	const [expirationEnabled, setExpirationEnabled] = useState<boolean>(false);
 	const [expiration, setExpiration] = useState<number>(0);
 
-	const chainId = useChainId();
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const chainId = searchParams.get("chainId") ?? "0xaa36a7";
 
 	const create = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -26,7 +28,7 @@ export default function CreateLotto({ refreshData } : { refreshData: () => void 
 				{ value: ticketPriceInWei.mul(numTickets) }
 			);
 			await tx.wait();
-			refreshData();
+			router.refresh();
 		}
 	}
 
