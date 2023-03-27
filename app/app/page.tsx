@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
 import Link from 'next/link'
+import LottoLogo from './LottoLogo'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -9,13 +9,11 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.center}>
-        <div className={styles.lottologo}>
-          <Image src="/lotto.png" alt="minilotto_logo" width={250} height={250} priority />
-        </div>
+        <LottoLogo width={250} height={250}/>
       </div>
 
       <div>
-        <Link href="/lottos" className={styles.card}>
+        <Link href="/lottos?chainId=0xaa36a7" className={styles.enter}>
           <h2 className={inter.className}>
             Enter <span> --&gt;</span>
           </h2>

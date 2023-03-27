@@ -1,0 +1,49 @@
+.logo {
+	clip-path: polygon(54% 0, 40% 19%, 17% 14%, 19% 31%, 14% 32%, 14% 41%, 0 50%, 18% 62%, 11% 85%, 35% 80%, 45% 99%, 60% 80%, 83% 85%, 81% 69%, 83% 67%, 85% 65%, 86% 63%, 87% 58%, 100% 50%, 82% 37%, 90% 14%, 65% 19%);
+}
+
+.logo::before,
+.logo::after {
+	content: '';
+	position: absolute;
+}
+
+/* Conic Gradient Animation */
+.logo::before {
+	background: var(--border-bg);
+	width: calc(110%);
+	padding-bottom: calc(120%);
+	animation: rotate 6s linear infinite;
+	z-index: -1;
+}
+
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+	.logo:hover {
+		animation: 100ms shake linear infinite;
+	}
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(360deg);
+	}
+	to {
+		transform: rotate(0deg);
+	}
+}
+
+@keyframes shake {
+	0% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(2deg);
+	}
+	75% {
+		transform: rotate(-2deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}

@@ -43,15 +43,11 @@ const ExpiredLottoCard = ({ id, capacity, ticketPrice, pool, expiration, refunde
 			<div className={styles.content}>
 				<h2 className={styles.prize}>
 					Prize: {utils.formatEther(BigNumber.from(ticketPrice).mul(capacity))}
-					<span style={{ fontSize: 17 }}>
-						<FaEthereum />
-					</span>
+					<span><FaEthereum /></span>
 				</h2>
 				<div className={styles.price}>
 					Ticket: {utils.formatEther(ticketPrice)}
-					<span style={{ fontSize: 12 }}>
-						<FaEthereum />
-					</span>
+					<span><FaEthereum /></span>
 				</div>
 			</div>
 			<div className={styles.expiry}>{expiryInfo}</div>

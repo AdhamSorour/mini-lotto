@@ -13,6 +13,7 @@ import { useAccount } from "./AccountProvider";
 const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) => {
 	const [numTickets, setNumTickets] = useState<number>(1);
 	const [expiryInfo, setExpiryInfo] = useState<string>("Expires in ...");
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const router = useRouter();
 	const searchParams = useSearchParams();
@@ -39,6 +40,7 @@ const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) 
 	}, [expiration, router]);
 
 	const handleBuyTickets = async () => {
+		setIsLoading(true);
 		const contract = await getContractWithSigner(chainId, account);
 		if (contract) {
 			try {
@@ -54,14 +56,18 @@ const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) 
 				console.log(error);
 			}
 		}
+		setIsLoading(false);
 	};
 
 	function formatTime(seconds: number): string {
 		const days = Math.floor(seconds / 86400);
+		if (days > 0) {
+			return `${days} days`;
+		}
 		const hours = Math.floor((seconds % 86400) / 3600).toString().padStart(2, '0');
 		const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
 		const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
-		return `${days}:${hours}:${minutes}:${secs}`;
+		return `${hours}:${minutes}:${secs}`;
 	}
 
 	return (
@@ -74,23 +80,20 @@ const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) 
 			<div className={styles.content}>
 				<h2 className={styles.prize}>
 					Prize: {utils.formatEther(BigNumber.from(ticketPrice).mul(capacity))}
-					<span style={{ fontSize: 17 }}>
-						<FaEthereum />
-					</span>
+					<span><FaEthereum /></span>
 				</h2>
 				<div className={styles.price}>
 					Ticket: {utils.formatEther(ticketPrice)}
-					<span style={{ fontSize: 12 }}>
-						<FaEthereum />
-					</span>
+					<span><FaEthereum /></span>
 				</div>
 			</div>
 			<div className={styles.expiry}>{expiryInfo}</div>
 			<div className={styles.actions}>
 				<span>
-					<button onClick={handleBuyTickets}>Buy Ticket(s)</button>
 					<button onClick={() => setNumTickets(num => Math.max(1, num - 1))}>-</button>
-					<span>{numTickets}</span>
+					<button onClick={handleBuyTickets} disabled={isLoading}>
+						{isLoading ? <i className={styles.spinner}></i> : `Buy ${numTickets} Ticket(s)`}
+					</button>
 					<button onClick={() => setNumTickets(num => Math.min(capacity - pool.length, num + 1))}>+</button>
 				</span>
 			</div>

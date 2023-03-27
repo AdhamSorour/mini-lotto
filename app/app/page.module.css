@@ -4,12 +4,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 6rem;
-  min-height: 90vh;
+  min-height: 100vh;
 }
 
-.card span {
+.enter span {
   display: inline-block;
   transition: transform 500ms;
+  padding-bottom: 3rem;
 }
 
 .center {
@@ -21,17 +22,16 @@
 }
 
 .center::before {
-  background: var(--secondary-glow);
-  border-radius: 50%;
-  width: 800px;
-  height: 600px;
-  margin-left: -400px;
+  background: var(--primary-glow);
+  width: 1500px;
+  height: 1500px;
+  z-index: -1;
 }
 
 .center::after {
   background: var(--primary-glow);
-  width: 500px;
-  height: 300px;
+  width: 1000px;
+  height: 1000px;
   z-index: -1;
 }
 
@@ -43,61 +43,9 @@
   transform: translateZ(0);
 }
 
-.lottologo {
-  clip-path: polygon(54% 0, 40% 19%, 17% 14%, 19% 31%, 14% 32%, 14% 41%, 0 50%, 18% 62%, 11% 85%, 35% 80%, 45% 99%, 60% 80%, 83% 85%, 81% 69%, 85% 66%, 87% 59%, 100% 50%, 82% 37%, 90% 14%, 65% 19%);
-}
-
-.lottologo::before,
-.lottologo::after {
-  content: '';
-  position: absolute;
-}
-
-/* Conic Gradient Animation */
-.lottologo::before {
-  background: var(--border-bg);
-  width: calc(110%);
-  padding-bottom: calc(120%);
-  animation: rotate 6s linear infinite;
-}
-
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
-  .card:hover span {
+  .enter:hover span {
     transform: translateX(10px);
-  }
-
-  .lottologo:hover {
-    animation: 100ms shake linear infinite;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .lottologo img {
-    filter: invert(1);
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes shake {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(1.5deg);
-  }
-  75% {
-    transform: rotate(-1.5deg);
-  }
-  100% {
-    transform: rotate(0deg);
   }
 }

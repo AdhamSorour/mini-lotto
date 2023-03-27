@@ -1,231 +1,236 @@
+/* LottosPage */
+
 .grid {
-	margin-bottom: 1rem;
+	margin-top: 1rem;
+	margin-left: 1rem;
+	margin-right: 190px;
 	display: flex;
 	align-items: flex-start;
 	justify-content: flex-start;
 	flex-wrap: wrap;
-	max-width: 1000px;
 }
 
 .card {
-	width: 250px;
-	height: auto;
-	margin: 1.5rem;
-	background: rgba(1, 65, 255, 0.4);
-	box-shadow: 0px 0px 20px 10px rgba(1, 65, 255, 0.5);
-}
-
-
-/*********************************************************************************************/
-/*
-.card {
-	background-color: #fff;
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-	margin: 16px;
-	padding: 16px;
-  }
-
-  .card {
-	width: 300px;
-	height: 450px;
+	background: var(--secondary-glow);
+	border-radius: var(--border-radius);
+	border: 1px solid rgba(1, 65, 255, 0.397);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	background-color: white;
-	border-radius: 10px;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  } 
-  
-  .tab {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: #42b883;
-	color: #fff;
-	font-weight: bold;
-	border-radius: 8px 8px 0 0;
-	padding: 8px 16px;
-  }
-  .tab.active {
-	background-color: #66d9b2;
-  }
-  .tab.expired {
-	background-color: #e8e8e8;
-	color: #555;
-  }
+	padding: 0 0 0.5rem 0;
+	margin: 1rem;
+	width: 300px;
+	position: relative;
+}
 
-   .tab {
-	width: 100%;
-	height: 40px;
+.activeTab,
+.expiredTab,
+.completeTab {
+	background-color: rgb(var(--callout-rgb));
+	border-radius: var(--border-radius) var(--border-radius) 0 0;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	background-color: var(--tab-color);
-	border-radius: 10px 10px 0 0;
-	padding: 0 10px;
-	color: white;
-	font-size: 14px;
-	font-weight: bold;
-  }
-  
-  .tab.active {
-	--tab-color: #00c400;
-  }
-  
-  .tab.expired {
-	--tab-color: #9b9b9b;
-  } 
-  
-  .prize {
-	display: flex;
-	align-items: center;
-	margin: 16px 0;
-  }
-  
-  .prize-icon {
-	height: 32px;
-	margin-right: 8px;
-  }
-  
-  .prize-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 150px;
-	font-size: 36px;
-	font-weight: bold;
-  }
-  
-  .remaining-tickets {
-	font-size: 14px;
-	margin-right: 10px;
-  }
-  
-  .ticket-price {
-	display: flex;
-	align-items: center;
-	font-size: 16px;
-	margin-bottom: 16px;
-  }
-  
-  .ticket-price-icon {
-	height: 16px;
-	margin-right: 8px;
-  }
-  
-  .expiry {
-	font-style: italic;
-	margin-top: 16px;
-  }
-   .expiry {
-	display: flex;
-	align-items: center;
-	font-size: 16px;
-	margin-top: 10px;
-  }
+	padding: 0.5rem 1rem;
+	margin: -1px -1px -1px -1px;
+	font-size: large;
+}
 
-  .action {
+.activeTab {
+	color: rgb(1, 111, 11);
+}
+
+.expiredTab {
+	color: rgb(111, 1, 1);
+}
+
+.content {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-top: 16px;
-  }
-   .action {
-	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: 60px;
-  }
+	margin-top: 1rem;
+}
 
-  .action button {
-	background-color: #42b883;
-	border: none;
-	color: #fff;
-	border-radius: 4px;
-	padding: 8px;
-	font-weight: bold;
-	cursor: pointer;
-  }
-  
-  .action button:hover {
-	background-color: #66d9b2;
-  }
-  
-  .buy-tickets-dial {
-	display: flex;
-	align-items: center;
-  }
-  
-  .buy-tickets-dial input[type="number"] {
-	appearance: none;
-	-moz-appearance: textfield;
-	width: 50px;
-	padding: 8px;
-	border: 1px solid #999;
-	border-radius: 4px;
+.prize {
+	font-size: xx-large;
+	/* font-weight: bold; */
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.prize span {
+	font-size: x-large;
+}
+
+.price {
+	font-size: medium;
+	font-weight: normal;
+}
+
+.price span {
+	font-size: small;
+}
+
+.expiry {
+	font-size: medium;
+	font-weight: normal;
 	text-align: center;
-	font-size: 16px;
-	font-weight: bold;
-	margin-left: 8px;
-  }
-  
+	margin-top: 1.5rem;
+}
 
-  
-  .cardButton {
-	padding: 0.5rem;
-	font-size: 1rem;
-	border-radius: 0.5rem;
-	background-color: #2A9D8F;
-	color: #FFFFFF;
-	border: none;
-	cursor: pointer;
-  }
-  
-  .cardButton:disabled {
-	background-color: #DDDDDD;
-	color: #999999;
-	cursor: not-allowed;
-  }
-  
-  .buyButtonWrapper {
+.actions {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 2rem;
-  }
-  
-  .buyTicketDial {
-	margin: 0 1rem;
-	width: 3rem;
-	height: 3rem;
+	margin-top: 1rem;
+}
+
+.actions button {
+	background-color: rgb(var(--callout-rgb));
+	border: 1px solid rgb(var(--callout-border-rgb));
+	border-radius: var(--border-radius);
+	color: rgb(var(--foreground-rgb));
+	cursor: pointer;
+	font-weight: bold;
+	margin: 0 0.5rem;
+	padding: 0.5rem 1rem;
+	transition: background-color 0.2s ease;
+}
+
+.actions button:hover {
+	background-color: rgb(var(--callout-border-rgb));
+}
+
+.winner {
+	font-size: large;
+	font-weight: bold;
+	margin-top: 1.5rem;
+	text-align: center;
+}
+
+.spinner {
+	border: 2px solid rgba(0, 0, 0, 0.1);
+	border-left-color: rgb(var(--foreground-rgb));
 	border-radius: 50%;
-	background-color: #FFFFFF;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 1.5rem;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	display: inline-block;
+	height: 10px;
+	width: 10px;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.verticalLine {
+	position: fixed;
+	top: 0;
+	right: 200px;
+	height: 100%;
+	border-left: 1px solid rgb(44, 44, 44);
+}
+
+/* ChainSelector */
+
+.chainSelector {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 100;
+	width: 150px;
+}
+
+.chainSelector select {
+	border-radius: var(--border-radius);
+	padding: 0.5rem;
+	border: 1px solid #888;
+	font-size: 1.3rem;
 	cursor: pointer;
-  }
-  
-  .buyTicketDial:hover {
-	background-color: #F1FAEE;
-  }
-  
-  .buyTicketDial:active {
-	transform: scale(0.95);
-  }
-  
-  .buyTicketNumber {
-	font-size: 1.5rem;
-	font-weight: bold;
-	text-align: center;
-  }
-  
-  .dialWrapper {
+	width: 100%;
+}
+
+/* LottoLogo */
+
+.floatingLogo {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 100;
+	cursor: pointer;
+}
+
+/* CreateDialog */
+
+.modal {
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.8);
 	display: flex;
 	justify-content: center;
 	align-items: center;
-  }
-  */
+}
+
+.modalSolidBackground {
+	position: absolute;
+	background-color: black;
+	border-radius: var(--border-radius);
+	width: 350px;
+	height: 250px;
+	z-index: -1;
+}
+
+.modalContent {
+	background: var(--secondary-glow);
+	border-radius: var(--border-radius);
+	padding-top: 20px;
+	border: 1px solid rgb(var(--callout-border-rgb));
+	width: 350px;
+	height: 250px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.formElement {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.formElement label {
+	margin-left: 10%;
+	justify-content: left;
+}
+
+.formElement input {
+	margin-right: 10%;
+	justify-content: right;
+	width: 40%;
+}
+
+.checkboxContainer {
+	display: flex;
+	align-items: center;
+}
+
+.inputField {
+	/* background: var(--input-background); */
+	border: 1px solid rgb(var(--callout-border-rgb));
+	border-radius: var(--border-radius);
+	padding: 0.2rem;
+	margin: 0.2rem;
+	color: var(--text-color);
+	font-size: 1rem;
+	width: 100%;
+}

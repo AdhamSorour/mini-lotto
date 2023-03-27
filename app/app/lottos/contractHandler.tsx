@@ -4,7 +4,7 @@ import artifact from '../../MiniLottoArtifact.json';
 import { Alchemy, AlchemyProvider, Network, Contract } from "alchemy-sdk";
 import { providers } from "ethers";
 
-export async function getContractWithProvider(chainId: string) : Promise<Contract | null> {
+export async function getContractWithProvider(chainId: string) : Promise<Contract> {
 	const { contractAddress, apiKey, network } = (() => {
 		switch (chainId) {
 			case "0x1": return {
