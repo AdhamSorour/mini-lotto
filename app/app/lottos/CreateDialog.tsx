@@ -8,14 +8,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useAccount } from './AccountProvider';
 import styles from './page.module.css';
 
-interface Props {
-	isOpen: boolean;
-	onClose: () => void;
-}
 
-export default function CreateDialog({ isOpen, onClose }: Props) {
-	if (!isOpen) return null
-
+export default function CreateDialog() {
 	const [capacity, setCapacity] = useState<number>(10);
 	const [ticketPrice, setTicketPrice] = useState<number>(0.1);
 	const [numTickets, setNumTickets] = useState<number>(1);
@@ -78,10 +72,7 @@ export default function CreateDialog({ isOpen, onClose }: Props) {
 	};
 
 	return (
-		<div
-			className={styles.modal}
-			onClick={e => { if (e.target === e.currentTarget) onClose(); }}
-		>
+		<div className={styles.modal}>
 			<div className={styles.modalSolidBackground}></div>
 			<div className={styles.modalContent}>
 				<form onSubmit={create}>

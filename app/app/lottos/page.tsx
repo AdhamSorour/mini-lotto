@@ -1,5 +1,4 @@
 import styles from "./page.module.css";
-import CreateLotto from './CreateLotto';
 import ActiveLottoCard from "./ActiveLottoCard";
 import ExpiredLottoCard from "./ExpiredLottoCard";
 import CompleteLottoCard from "./CompleteLottoCard";

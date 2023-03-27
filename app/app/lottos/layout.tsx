@@ -29,7 +29,7 @@ export default function MainLayout({
         <AccountProvider>
           {children}
         </AccountProvider>
-        <CreateDialog isOpen={isCreateDialogOpen} onClose={toggleCreateDialog}/>
+        {isCreateDialogOpen && <CreateDialog/>}
       </div>
     </main>
   )
