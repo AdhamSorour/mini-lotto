@@ -18,11 +18,9 @@ const CompleteLottoCard = ({ id, capacity, ticketPrice, pool }: Game) => {
 	useEffect(() => {
 		const getWinner = async () => {
 			const contract = await getContractWithProvider(chainId);
-			if (contract) {
-				const filter = contract.filters.Winner(id);
-				const events = await contract.queryFilter(filter);
-				setWinner('0x' + events[0].data.slice(26));
-			}
+			const filter = contract.filters.Winner(id);
+			const events = await contract.queryFilter(filter);
+			setWinner('0x' + events[0].data.slice(26));
 		}
 
 		getWinner();

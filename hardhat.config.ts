@@ -68,6 +68,22 @@ task('upgrade', "Upgrades the implementation of the deployed proxy on the select
   })
 ;
 
+task('estimateGas', "Estimates the gas cost for deploying a contract on the selected network")
+  .addPositionalParam('contractName', "The name of the contract")
+  .addOptionalVariadicPositionalParam('args', "The constructor arguments", [])
+  .setAction(async function (taskArgs: TaskArguments, hre: HardhatRuntimeEnvironment) {
+    const { contractName, args } = taskArgs;
+
+    const Contract: ContractFactory = await hre.ethers.getContractFactory(contractName as string);
+    const deployTransaction = Contract.getDeployTransaction(...args);
+    const estimatedGas = await hre.ethers.provider.estimateGas(deployTransaction);
+    const gasPrice = await hre.ethers.provider.getGasPrice();
+
+    console.log(
+      `deploying the contract "${contractName}" to ${hre.network.name} will cost ~${hre.ethers.utils.formatEther(estimatedGas.mul(gasPrice))} ETH`);
+  })
+;
+
 async function updateProxyDeployment(address: string, network: string) {
   let info = JSON.parse(readFileSync('./app/contract_deployments.json').toString());
   if (!info.proxy) info.proxy = {};
@@ -92,10 +108,6 @@ const config: HardhatUserConfig = {
     },
     sepolia: {
       url: process.env.ALCHEMY_SEPOLIA_URL,
-      accounts: [`${process.env.PRIVATE_KEY}`]
-    },
-    mainnet: {
-      url: process.env.ALCHEMY_MAINNET_URL,
       accounts: [`${process.env.PRIVATE_KEY}`]
     },
     polygon_mumbai: {

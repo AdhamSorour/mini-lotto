@@ -7,11 +7,6 @@ import { providers } from "ethers";
 export async function getContractWithProvider(chainId: string) : Promise<Contract> {
 	const { contractAddress, apiKey, network } = (() => {
 		switch (chainId) {
-			case "0x1": return {
-				contractAddress: deployments.proxy.mainnet,
-				apiKey: process.env.NEXT_PUBLIC_ALCHEMY_MAINNET_API_KEY,
-				network: Network.ETH_MAINNET
-			}
 			case "0x5": return {
 				contractAddress: deployments.proxy.goerli,
 				apiKey: process.env.NEXT_PUBLIC_ALCHEMY_GOERLI_API_KEY,
@@ -62,7 +57,6 @@ export async function getContractWithSigner(chainId: string, account: string | n
 		}
 	}
 	const contractAddress = (() => {switch(chainId) {
-			case "0x1": return deployments.proxy.mainnet;
 			case "0x5": return deployments.proxy.goerli;
 			case "0x89": return deployments.proxy.polygon_mainnet;
 			case "0x13881": return deployments.proxy.polygon_mumbai;

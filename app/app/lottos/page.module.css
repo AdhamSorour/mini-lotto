@@ -151,11 +151,12 @@
 
 .chainSelector select {
 	border-radius: var(--border-radius);
-	padding: 0.5rem;
+	padding: 0.4rem;
 	border: 1px solid #888;
-	font-size: 1.3rem;
+	font-size: 1.1rem;
 	cursor: pointer;
 	width: 100%;
+	/* text-overflow: ellipsis; */
 }
 
 /* LottoLogo */

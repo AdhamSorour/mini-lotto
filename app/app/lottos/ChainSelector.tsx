@@ -19,7 +19,7 @@ export default function ChainSelector() {
 	);
 
 	useEffect(() => {
-		const supportedChains: string[] = ["0xaa36a7", "0x5", "0x1", "0x13881", "0x89"];
+		const supportedChains: string[] = ["0xaa36a7", "0x5", "0x13881", "0x89"];
 		const selectChainId: string | null = searchParams.get("chainId");
 		if (selectChainId) {
 			if (supportedChains.includes(selectChainId)) {
@@ -42,11 +42,12 @@ export default function ChainSelector() {
 
 	return (
 		<select value={chainId} onChange={handleChainChange}>
-			<option value="0xaa36a7">Sepolia</option>
-			<option value="0x5">Goerli</option>
-			<option value="0x13881">Polygon Mumbai</option>
-			<option value="0x1">Mainnet😳</option>
-			<option value="0x89">Polygon Mainnet😳</option>
+			<optgroup>
+				<option value="0xaa36a7">Sepolia</option>
+				<option value="0x5">Goerli</option>
+				<option value="0x13881">Polygon Mumbai</option>
+				<option value="0x89">Polygon Mainnet😳</option>
+			</optgroup>
 		</select>
 	)
 }
