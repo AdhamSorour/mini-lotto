@@ -214,14 +214,14 @@
 }
 
 .formElement label {
-	margin-left: 10%;
 	justify-content: left;
 }
 
 .formElement input {
-	margin-right: 10%;
+	padding-left: 1rem;
+	padding-right: 1rem;
 	justify-content: right;
-	width: 40%;
+	width: 50%;
 }
 
 .checkboxContainer {

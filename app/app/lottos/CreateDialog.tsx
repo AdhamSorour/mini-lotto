@@ -38,9 +38,11 @@ export default function CreateDialog() {
 				await tx.wait();
 				router.refresh();
 			} catch (error: any) {
-				if (error.code === "INSUFFICIENT_FUNDS") {
+				error = error.error || error.data;
+				if (error && error.code === -32000) {
 					alert("you poor");
-					console.log(error);
+				} else {
+					alert("problem with transaction");
 				}
 			}
 		}

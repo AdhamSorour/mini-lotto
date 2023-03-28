@@ -61,17 +61,17 @@ export default async function LottosPage({ searchParams }: Props) {
 		<div>
 			<div className={styles.grid}>
 				{activeGames.map(game => {
-					return <ActiveLottoCard key={game.id} {...game} />
+					return <ActiveLottoCard key={`${chainId}:${game.id}`} {...game} />
 				})}
 			</div>
 			<div className={styles.grid}>
 				{expiredGames.map(game => {
-					return <ExpiredLottoCard key={game.id} {...game} />
+					return <ExpiredLottoCard key={`${chainId}:${game.id}`} {...game} />
 				})}
 			</div>
 			<div className={styles.grid}>
 				{completeGames.map(game => {
-					return <CompleteLottoCard key={game.id} {...game} />
+					return <CompleteLottoCard key={`${chainId}:${game.id}`} {...game} />
 				})}
 			</div>
 		</div>

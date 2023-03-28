@@ -16,8 +16,18 @@ export async function getContractWithProvider(chainId: string) : Promise<Contrac
 				contractAddress: deployments.proxy.goerli,
 				apiKey: process.env.NEXT_PUBLIC_ALCHEMY_GOERLI_API_KEY,
 				network: Network.ETH_GOERLI
-			}		
-			default: return {
+			}
+			case "0x89": return {
+				contractAddress: deployments.proxy.polygon_mainnet,
+				apiKey: process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_API_KEY,
+				network: Network.MATIC_MAINNET
+			}
+			case "0x13881": return {
+				contractAddress: deployments.proxy.polygon_mumbai,
+				apiKey: process.env.NEXT_PUBLIC_ALCHEMY_POLYGON_MUMBAI_API_KEY,
+				network: Network.MATIC_MUMBAI
+			}
+			default: return { // Sepolia = 0xaa36a7
 				contractAddress: deployments.proxy.sepolia,
 				apiKey: process.env.NEXT_PUBLIC_ALCHEMY_SEPOLIA_API_KEY,
 				network: Network.ETH_SEPOLIA
@@ -54,6 +64,8 @@ export async function getContractWithSigner(chainId: string, account: string | n
 	const contractAddress = (() => {switch(chainId) {
 			case "0x1": return deployments.proxy.mainnet;
 			case "0x5": return deployments.proxy.goerli;
+			case "0x89": return deployments.proxy.polygon_mainnet;
+			case "0x13881": return deployments.proxy.polygon_mumbai;
 			default: return deployments.proxy.sepolia;
 		}
 	})();

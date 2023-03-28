@@ -14,12 +14,16 @@
 		},
 		"4": {
 			"sepolia": "0xe3584E55fb3ed0Aaf548FeB6D8DC9855011347a5",
-			"goerli": "0x0370D84cdA30d4A4703C0DD689EeA9325E22ca90"
+			"goerli": "0x0370D84cdA30d4A4703C0DD689EeA9325E22ca90",
+			"polygon_mumbai": "0x3e18Ee5aBB1d36A9f75181bFbb4C477E81607532",
+			"polygon_mainnet": "0x84aBA485CD33Ea4D66a6D7A24f84637921181265"
 		}
 	},
 	"proxy": {
-		"goerli": "0xf6a5D6C57A4Ac8117f53B7E5192705B305E7528E",
-		"sepolia": "0x03B0cB7b494cAe535c34A7d2b52569B12E512943",
-		"mainnet": ""
+		"goerli": "0x5700e7Bbd383EeB96CAEF78B66067a2DEAAa5913",
+		"sepolia": "0x6419B4d3554Dd5f9d98c7178607340E7d405e0e5",
+		"mainnet": "",
+		"polygon_mumbai": "0x0FB13952d22777636533EC1aa837e7Ab9f327708",
+		"polygon_mainnet": "0xd1196611dF3356867C5422B5e4bFb2A6aBee06c7"
 	}
 }

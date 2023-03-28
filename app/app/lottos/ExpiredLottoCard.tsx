@@ -29,9 +29,18 @@ const ExpiredLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game)
 		setIsLoading(true);
 		const contract = await getContractWithSigner(chainId, account);
 		if (contract) {
-			const tx = await contract.distributePrize(id);
-			await tx.wait();
-			router.refresh();
+			try {
+				const tx = await contract.distributePrize(id);
+				await tx.wait();
+				router.refresh();
+			} catch (error: any) {
+				error = error.error || error.data;
+				if (error?.code === -32000) {
+					alert("you poor");
+				} else {
+					alert("problem with transaction");
+				}
+			}
 		}
 		setIsLoading(false);
 	};

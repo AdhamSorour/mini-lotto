@@ -50,10 +50,12 @@ const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) 
 				await tx.wait();
 				router.refresh();
 			} catch (error: any) {
-				if (error.code === "INSUFFICIENT_FUNDS") {
+				error = error.error || error.data;
+				if (error && error.code === -32000) {
 					alert("you poor");
+				} else {
+					alert("problem with transaction");
 				}
-				console.log(error);
 			}
 		}
 		setIsLoading(false);

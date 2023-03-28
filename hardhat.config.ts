@@ -97,6 +97,14 @@ const config: HardhatUserConfig = {
     mainnet: {
       url: process.env.ALCHEMY_MAINNET_URL,
       accounts: [`${process.env.PRIVATE_KEY}`]
+    },
+    polygon_mumbai: {
+      url: process.env.ALCHEMY_POLYGON_MUMBAI_URL,
+      accounts: [`${process.env.PRIVATE_KEY}`]
+    },
+    polygon_mainnet: {
+      url: process.env.ALCHEMY_POLYGON_MAINNET_URL,
+      accounts: [`${process.env.PRIVATE_KEY}`]
     }
   },
   etherscan: {
