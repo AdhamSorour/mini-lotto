@@ -14,11 +14,11 @@ task(
     runSuper: RunSuperFunction<TaskArguments>) {
       await runSuper(taskArgs);
       copyFileSync(
-        './artifacts/contracts/MiniLottoV3.sol/MiniLottoV3.json',
+        './artifacts/contracts/MiniLottoV4.sol/MiniLottoV4.json',
         './app/MiniLottoArtifact.json'
       )
 
-      console.log("copied V3 artiface to 'app/MiniLottoArtifact.json`")
+      console.log("copied V4 artifact to 'app/MiniLottoArtifact.json`")
   }
 );
 

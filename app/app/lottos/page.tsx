@@ -17,7 +17,7 @@ export interface Game {
 	ticketPrice: string,
 	pool: string[],
 	expiration: number,
-	refunded: boolean
+	prizeDistributed: boolean
 }
 
 async function getGames(chainId: string) {
@@ -29,7 +29,7 @@ async function getGames(chainId: string) {
 			ticketPrice: game[1].toString(),
 			pool: game[2],
 			expiration: game[3].toNumber(),
-			refunded: game[4]
+			prizeDistributed: game[4]
 		})
 	);
 
@@ -40,9 +40,10 @@ async function getGames(chainId: string) {
 	const expiredGames = games.filter(game =>
 		game.pool.length < game.capacity 
 		&& (game.expiration !== 0 && game.expiration <= Date.now()/1000)
+		&& !game.prizeDistributed
 	);
 	const completeGames = games.filter(game =>
-		game.pool.length === game.capacity
+		game.pool.length === game.capacity || game.prizeDistributed
 	);
 
 	return { activeGames, expiredGames, completeGames };

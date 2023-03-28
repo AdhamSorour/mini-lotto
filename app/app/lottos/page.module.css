@@ -43,6 +43,10 @@
 	color: rgb(111, 1, 1);
 }
 
+.completeTab {
+	color: rgb(111, 111, 111);
+}
+
 .content {
 	display: flex;
 	flex-direction: column;
@@ -192,7 +196,7 @@
 .modalContent {
 	background: var(--secondary-glow);
 	border-radius: var(--border-radius);
-	padding-top: 20px;
+	padding-top: 25px;
 	border: 1px solid rgb(var(--callout-border-rgb));
 	width: 350px;
 	height: 250px;
@@ -206,6 +210,7 @@
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
+	margin-top: 5px;
 }
 
 .formElement label {

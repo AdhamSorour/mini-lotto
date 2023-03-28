@@ -11,6 +11,10 @@
 		"3": {
 			"sepolia": "0x373779bd85A5C7Db47ABE750e0ACFC201e9fEE0e",
 			"goerli": "0xa9931BD497C7B2F89B14ca570A02F58FeBC2690F"
+		},
+		"4": {
+			"sepolia": "0xe3584E55fb3ed0Aaf548FeB6D8DC9855011347a5",
+			"goerli": "0x0370D84cdA30d4A4703C0DD689EeA9325E22ca90"
 		}
 	},
 	"proxy": {

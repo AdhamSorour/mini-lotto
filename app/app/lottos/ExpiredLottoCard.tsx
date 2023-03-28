@@ -10,8 +10,9 @@ import { useEffect, useState } from "react";
 import { useAccount } from "./AccountProvider";
 
 
-const ExpiredLottoCard = ({ id, capacity, ticketPrice, pool, expiration, refunded }: Game) => {
+const ExpiredLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) => {
 	const [expiryInfo, setExpiryInfo] = useState<string>("Expired on ...");
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const router = useRouter();
 	const searchParams = useSearchParams();
@@ -24,13 +25,15 @@ const ExpiredLottoCard = ({ id, capacity, ticketPrice, pool, expiration, refunde
 		setExpiryInfo(`Expired on ${expiry.toLocaleDateString()} ${expiry.toLocaleTimeString()}`);
 	}, [expiration]);
 
-	const handleRefund = async () => {
+	const distributePrize = async () => {
+		setIsLoading(true);
 		const contract = await getContractWithSigner(chainId, account);
 		if (contract) {
-			const tx = await contract.refund(id);
+			const tx = await contract.distributePrize(id);
 			await tx.wait();
 			router.refresh();
 		}
+		setIsLoading(false);
 	};
 
 	return (
@@ -52,7 +55,9 @@ const ExpiredLottoCard = ({ id, capacity, ticketPrice, pool, expiration, refunde
 			</div>
 			<div className={styles.expiry}>{expiryInfo}</div>
 			<div className={styles.actions}>
-				{refunded ? "Tickets Refunded" : <button onClick={handleRefund}>Refund</button>}
+				<button onClick={distributePrize} disabled={isLoading}>
+					{isLoading ? <i className={styles.spinner}></i> : "Distribute Prize"}
+				</button>
 			</div>
 		</div>
 	)
