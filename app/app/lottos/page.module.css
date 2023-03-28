@@ -57,13 +57,8 @@
 
 .prize {
 	font-size: xx-large;
-	/* font-weight: bold; */
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
-}
-
-.prize span {
-	font-size: x-large;
 }
 
 .price {
@@ -71,9 +66,11 @@
 	font-weight: normal;
 }
 
-.price span {
-	font-size: small;
+.price span,
+.prize span {
+	margin-left: 7px;
 }
+
 
 .expiry {
 	font-size: medium;

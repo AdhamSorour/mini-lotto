@@ -2,6 +2,7 @@
 
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
+import { Matic } from "@styled-icons/crypto"
 import { FaEthereum } from "react-icons/fa";
 import { utils, BigNumber } from "ethers";
 import { Game } from './page';
@@ -28,6 +29,11 @@ const CompleteLottoCard = ({ id, capacity, ticketPrice, pool }: Game) => {
 
 	const formatAddress = (address: string) => address.slice(0, 4) + '...' + address.slice(-4);
 
+	const icon = (size:number) => {
+		if (chainId === "0x5" || chainId === "0xaa36a7") return <FaEthereum size={size} />
+		else return <Matic size={size} />
+	}
+
 	return (
 		<div className={styles.card}>
 			<div className={styles.completeTab}>
@@ -38,11 +44,11 @@ const CompleteLottoCard = ({ id, capacity, ticketPrice, pool }: Game) => {
 			<div className={styles.content}>
 				<h2 className={styles.prize}>
 					Prize: {utils.formatEther(BigNumber.from(ticketPrice).mul(capacity))}
-					<span><FaEthereum /></span>
+					<span>{icon(20)}</span>
 				</h2>
 				<div className={styles.price}>
 					Ticket: {utils.formatEther(ticketPrice)}
-					<span><FaEthereum /></span>
+					<span>{icon(10)}</span>
 				</div>
 			</div>
 			<div className={styles.winner}>Winner: {formatAddress(winner)}</div>

@@ -3,6 +3,7 @@
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
 import { FaEthereum } from "react-icons/fa";
+import { Matic } from "@styled-icons/crypto"
 import { utils, BigNumber } from "ethers";
 import { Game } from './page';
 import { getContractWithSigner } from "./contractHandler";
@@ -72,6 +73,11 @@ const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) 
 		return `${hours}:${minutes}:${secs}`;
 	}
 
+	const icon = (size:number) => {
+		if (chainId === "0x5" || chainId === "0xaa36a7") return <FaEthereum size={size} />
+		else return <Matic size={size} />
+	}
+
 	return (
 		<div className={styles.card}>
 			<div className={styles.activeTab}>
@@ -82,11 +88,11 @@ const ActiveLottoCard = ({ id, capacity, ticketPrice, pool, expiration }: Game) 
 			<div className={styles.content}>
 				<h2 className={styles.prize}>
 					Prize: {utils.formatEther(BigNumber.from(ticketPrice).mul(capacity))}
-					<span><FaEthereum /></span>
+					<span>{icon(20)}</span>
 				</h2>
 				<div className={styles.price}>
 					Ticket: {utils.formatEther(ticketPrice)}
-					<span><FaEthereum /></span>
+					<span>{icon(10)}</span>
 				</div>
 			</div>
 			<div className={styles.expiry}>{expiryInfo}</div>
