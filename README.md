@@ -3,7 +3,7 @@
 </p>
 
 <h3 align="center">Create and participate in mini lottery games on EVM-compatible chains</h3>
-<h4 align="center">&#8226;&ensp; Sepolia &ensp;&#8226;&ensp; Goerli &ensp;&#8226;&ensp; Mumbai &ensp;&#8226;&ensp; Polygon &ensp;&#8226; </h4>
+<h4 align="center">Sepolia &ensp;&#8226;&ensp; Goerli &ensp;&#8226;&ensp; Mumbai &ensp;&#8226;&ensp; Polygon</h4>
 
 # Overview
 
