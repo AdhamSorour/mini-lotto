@@ -2,7 +2,7 @@
 	<img  src="https://raw.githubusercontent.com/AdhamSorour/mini-lotto/main/app/public/lotto.svg"  alt= “minilotto_logo”  width="150"  height="150">
 </p>
 
-<h3 align="center">Create and participate in mini lottery games on EVM-compatible chains</h3>
+<h3 align="center">Mini lottery games on EVM-compatible chains</h3>
 <h4 align="center">Sepolia &ensp;&#8226;&ensp; Goerli &ensp;&#8226;&ensp; Mumbai &ensp;&#8226;&ensp; Polygon</h4>
 
 # Overview
