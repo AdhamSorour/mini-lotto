@@ -104,9 +104,13 @@
 
 .winner {
 	font-size: large;
-	font-weight: bold;
+	/* font-weight: bold; */
 	margin-top: 1.5rem;
 	text-align: center;
+}
+
+.winner a:hover {
+	text-decoration: underline;
 }
 
 .spinner {
@@ -131,7 +135,7 @@
 .verticalLine {
 	position: fixed;
 	top: 0;
-	right: 200px;
+	right: 190px;
 	height: 100%;
 	border-left: 1px solid rgb(44, 44, 44);
 }
@@ -148,12 +152,16 @@
 
 .chainSelector select {
 	border-radius: var(--border-radius);
-	padding: 0.4rem;
+	padding: 0.3rem;
 	border: 1px solid #888;
-	font-size: 1.1rem;
+	font-size: 1.3rem;
 	cursor: pointer;
 	width: 100%;
-	/* text-overflow: ellipsis; */
+	text-overflow: ellipsis;
+}
+
+.chainSelector a {
+	text-decoration: underline;
 }
 
 /* LottoLogo */

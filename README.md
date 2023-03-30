@@ -67,14 +67,15 @@ The buyer of each ticket is added to a pool and, when the prize is distributed, 
 2. install the root dependencies: `cd mini-lotto && npm install`
 3. install the app dependencies: `cd app && npm install`
 4. create two `.env` files and define the following:
-	* `/.env`
+	* `/.env` (optional for development)
 		* PRIVATE_KEY
 		* ALCHEMY_GOERLI_URL
 		* ALCHEMY_SEPOLIA_URL
 		* ALCHEMY_POLYGON_MUMBAI_URL
 		* ALCHEMY_POLYGON_MAINNET_URL
 		* ETHERSCAN_KEY
-	* `/app/.env`
+		* POLYSCAN_KEY
+	* `/app/.env` (required to run)
 		* NEXT_PUBLIC_ALCHEMY_GOERLI_API_KEY
 		* NEXT_PUBLIC_ALCHEMY_SEPOLIA_API_KEY
 		* NEXT_PUBLIC_ALCHEMY_POLYGON_MUMBAI_API_KEY

@@ -110,17 +110,22 @@ const config: HardhatUserConfig = {
       url: process.env.ALCHEMY_SEPOLIA_URL,
       accounts: [`${process.env.PRIVATE_KEY}`]
     },
-    polygon_mumbai: {
+    polygonMumbai: {
       url: process.env.ALCHEMY_POLYGON_MUMBAI_URL,
       accounts: [`${process.env.PRIVATE_KEY}`]
     },
-    polygon_mainnet: {
+    polygon: {
       url: process.env.ALCHEMY_POLYGON_MAINNET_URL,
       accounts: [`${process.env.PRIVATE_KEY}`]
     }
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_KEY
+    apiKey: {
+      goerli: `${process.env.ETHERSCAN_KEY}`,
+      sepolia: `${process.env.ETHERSCAN_KEY}`,
+      polygonMumbai: `${process.env.POLYSCAN_KEY}`,
+      polygon: `${process.env.POLYSCAN_KEY}`
+    }
   }
 };
 

@@ -28,6 +28,14 @@ const CompleteLottoCard = ({ id, capacity, ticketPrice, pool }: Game) => {
 	}, [id, chainId]);
 
 	const formatAddress = (address: string) => address.slice(0, 4) + '...' + address.slice(-4);
+	const addressUrl = (address: string) => {
+		switch (chainId) {
+			case "0x5": return "https://goerli.etherscan.io/address/" + address;
+			case "0x89": return "https://polygonscan.com/address/" + address;
+			case "0x13881": return "https://mumbai.polygonscan.com/address/" + address;
+			default: return "https://sepolia.etherscan.io/address/" + address;
+		}
+	}
 
 	const icon = (size:number) => {
 		if (chainId === "0x5" || chainId === "0xaa36a7") return <FaEthereum size={size} />
@@ -51,7 +59,12 @@ const CompleteLottoCard = ({ id, capacity, ticketPrice, pool }: Game) => {
 					<span>{icon(10)}</span>
 				</div>
 			</div>
-			<div className={styles.winner}>Winner: {formatAddress(winner)}</div>
+			<div className={styles.winner}>
+				Winner: 
+				<a href={addressUrl(winner)} target="_blank" rel="noopener noreferrer">
+					{formatAddress(winner)}
+				</a>
+			</div>
 		</div>
 	)
 }
