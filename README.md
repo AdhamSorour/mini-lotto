@@ -35,29 +35,29 @@ There are no limits on the number of tickets a user can buy, your odds of winnin
 
 ### Game Creation
 
-Game creation requires that the user purchases at least on ticket. This is to prevent the unneccessary creation of many empty lottery games. To create a new lottery press on the big Mini Lotto button on the bottom right.
+The game creator is required to purchases at least on ticket. This is to prevent the unneccessary creation of many empty lottery games. To create a new lottery press on the big Mini Lotto button on the bottom right.
 
 # Technicalities
 
 ### Expired Games
 
-The EVM is a transaction-based state machine - anything that happens on the blockchain must be initiated by a transaction. Since no transactions initiate the expiry (it's just a timestamp), when a lottery expires the user must manually initiate the prize distribution. On the dashboard expired games will have a "Distribute Prize" button that will distribute the prize to a random winner from the participants. Anyone can press the button, but usually only users who bought tickets would be motivated to do so since a small gas fee will be incurred. 
+The EVM is a transaction-based state machine - anything that happens on the blockchain must be initiated by a transaction. Since no transactions initiate the expiry (it's just a timestamp), when a lottery expires the user must manually initiate the prize distribution. On the dashboard expired games will have a "Distribute Prize" button that will distribute the prize to a random winner from the participants. Anyone can press the button, but usually only users who bought tickets would be motivated to do so since a small gas fee will be incurred. There are ways to automatically distribute the prize on expiry and they're discussed in [Potential Improvements](#potential-improvements).
 
-Also keep in mind that the prize for expired games will not match the prize displayed on the card since that is based on the game capacity (which had not been reached). It will instead equal the number of tickets bought (shown on the top right) multiplied by the ticket price.
+Also keep in mind that the prize for expired games will not match the prize displayed on the card since that is based on the game capacity (which has not been reached). It will instead equal the number of tickets bought (shown on the top right) multiplied by the ticket price.
  
 ### Random Selection
 
-The buyer of each ticket is added to a pool and, when the prize is distributed, the funds are sent to a random address selected from the pool. Sort of like a raffle. Under the hood this is implemented as a simple dynamic array - if you buy 5 tickets, there will 5 entries of your address in the pool array. The random index is generated using the hash of the block timestamp, address pool, and a counter/nonce. This makes it **very difficult** to predict or control the outcome, but not impossible. True randomness is impossible to achieve on-chain due to the blockchain's deterministic nature, other solutions that accomplish this are discussed in [Potential Improvements](#potential-improvements).
+The buyer of each ticket is added to a pool and, when the prize is distributed, the funds are sent to a random address selected from the pool. Sort of like a raffle. Under the hood this is implemented as a simple dynamic array - if you buy 5 tickets, there will be 5 entries of your address in the pool array. The random index is generated using the hash of the block timestamp, address pool, and a counter/nonce. This makes it **very difficult** to predict or control the outcome, but not impossible. True randomness is impossible to achieve on-chain due to the blockchain's deterministic nature, other solutions that accomplish this are also discussed in [Potential Improvements](#potential-improvements).
 
 # Development
 
 ### Project Structure
 ```
-├── app						Next13 app (uses the new app directory)
-├── contracts				Openzeppelin UUPS proxy pattern
+├── app				Next13 app (uses the new app directory)
+├── contracts			Openzeppelin UUPS proxy pattern
 │   ├── MiniLottoVx.sol		the implementation contract version x 		
-│   ├── MiniLottoProxy.sol	the proxy contract
-├── test					Hardhat test suite
+│   └── MiniLottoProxy.sol	the proxy contract
+├── test			Hardhat test suite
 ├── hardhat.config.ts		Hardhat config file (has custom tasks and network info)
 ```
 
@@ -92,7 +92,7 @@ I created the following custom Hardhat tasks in `/hardhat.config.ts` to help wit
 * deployProxy
 * upgrade
 
-I also overriden the `compile` task to cp the latest Artifact to the app directory. When creating new implementation versions make sure to update this task to copy the right contract version.'
+I also overriden the `compile` task to copy the latest Artifact to the app directory. When creating new implementation versions make sure to update this task to copy the right contract version.
 
 To view the description and parameters of a specific task: `npx hardhat help <task_name>`
 To view all the available tasks (including built-in tasks): `npx hardhat help`
@@ -101,12 +101,19 @@ To view all the available tasks (including built-in tasks): `npx hardhat help`
 
 ### External source of randomness
 
-One way to acheive true randomness is to use an oracle like Chainlink's [Verifiable Random Function (VRF)](https://chain.link/vrf?&utm_medium=paid-search&utm_source=google&utm_term=vrf&agid=bbe5sc6y0fzr&cnid=a7lcqb229rie&gclid=EAIaIQobChMIj5HN26yA_gIVQyc4Ch0c4wigEAAYASAAEgI2xvD_BwE). This uses off-chain data to calculate truly random numbers to use in our contract when needed. 
+One way to acheive true randomness is to use an oracle like Chainlink's [Verifiable Randomness Function (VRF)](https://chain.link/vrf?&utm_medium=paid-search&utm_source=google&utm_term=vrf&agid=bbe5sc6y0fzr&cnid=a7lcqb229rie&gclid=EAIaIQobChMIj5HN26yA_gIVQyc4Ch0c4wigEAAYASAAEgI2xvD_BwE). This uses off-chain data to calculate truly random numbers to use in our contract when needed to select truly random winners that can't be swayed or predicted. 
 
+### Support ERC20 tokens
+
+Currently users can only bet the chain's native currency (ETH for Sepolia, MATIC for Polygon, etc.). An improvement would be to support the creation of lotteries in other ERC20 tokens (DAI, DOGE, etc.).
+
+### Automated prize distribution for expired games
+
+As mentioned above, prize distribution for expired games must be triggered by a transaction. Currently, this is accomplished by the manual press of a button. To automate this process, we would need to somehow detect the expiry event *off chain* and automatically send a transaction to distribute the prize. This way users do not need to worry about checking back to see if the games they entered have expired or not. This can be accomplished by setting up "keepers" through an automation service such as the [Chainlink Automation Network](https://docs.chain.link/chainlink-automation/introduction/#time-based-trigger). It's important to note that these services do have costs and would require that a small fee be added to the each ticket price to cover these costs.
 
 ### Uneven ticket purchase gas cost
 
-Due to the game mechanics and the varying amount of code executed during the different function calls, gas costs for purchasin a ticket will not be equal across all the participants. I am talking here about the *amount of gas* used not the price of gas. Namely, there are three different gas costs to buying a lottery ticket:
+Due to the game mechanics, there is a varying amount of code executed during the different function calls. This results in different gas costs for purchasing a ticket. I am talking here about the *amount of gas* used not the price of gas. Namely, there are three different gas costs to buying a lottery ticket:
 
 * the first ticket(s) ~ 162164 gas
 	
@@ -114,13 +121,12 @@ Due to the game mechanics and the varying amount of code executed during the dif
 	
 * the final ticket(s) ~ 116284 gas
 
-	since the prize is automatically distributed as soon as the final ticket is purchased, the gas costs for calculating the random winner and sending them the prize are including in the gas costs for purchasing the final ticket
+	since the prize is automatically distributed as soon as the final ticket is purchased, the gas costs for selecting the random winner and sending them the prize are included in the gas costs for purchasing the final ticket
 
 * all other tickets ~ 94093 gas
 
-	all other tickets have cost slightly less gas because they involve no extra processing outside of registering the ticket buyer
+	all other tickets cost less gas because they involve no extra processing outside of registering the ticket buyer
 
 
-An improvement would somehow deal with this fact and adjust the ticket prices slightly to equalize the gas paid across all tickets. However it is safe to say that if your dealing with ticket prices above 0.001 on all the supported chains these differences will be negligible.
-
+An improvement would somehow deal with this fact and adjust the ticket prices slightly to equalize the gas paid across all tickets. However it is safe to say that if your dealing with ticket prices above 0.001 on all the supported chains, these differences will be negligible.
 
